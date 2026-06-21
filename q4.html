@@ -12,6 +12,10 @@
     background:radial-gradient(ellipse at 50% 90%, #8a1f33 0%, var(--rose) 50%, #260509 100%);
     color:var(--blush);
   }
+  button.q-next{
+    font-family:'Marcellus', serif;
+    cursor:pointer;
+  }
 </style>
 </head>
 <body>
@@ -32,8 +36,9 @@
   <p class="q-reaction" id="reaction"></p>
 
   <div class="q-nav">
-    <a href="story.html" class="q-next" id="nextBtn">Open our story →</a>
+    <button class="q-next" id="nextBtn">Send my answers to her →</button>
   </div>
+  <p style="margin-top:18px; font-size:0.85rem; opacity:0.6; max-width:340px;">this opens your email app with your answers filled in — just hit send</p>
 </div>
 
 <script>
@@ -51,6 +56,37 @@
       nextBtn.classList.remove('enabled');
       reaction.classList.remove('show');
     }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if(!nextBtn.classList.contains('enabled')) return;
+
+    let q1, q2, q3, q4;
+    try{
+      q1 = localStorage.getItem('q1') || '(skipped)';
+      q2 = localStorage.getItem('q2') || '(skipped)';
+      q3 = localStorage.getItem('q3') || '(skipped)';
+      q4 = localStorage.getItem('q4') || '(skipped)';
+    }catch(e){
+      q1 = q2 = q3 = q4 = '(could not read answer)';
+    }
+
+    const subject = "My answers, from your husband";
+    const body =
+      "Does he love me?\n" + q1 + "\n\n" +
+      "What he loves most about me:\n" + q2 + "\n\n" +
+      "What \"us\" means to him:\n" + q3 + "\n\n" +
+      "His promise to me:\n" + q4;
+
+    const mailto = "mailto:sameehaizzath@gmail.com?subject=" +
+      encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+
+    window.location.href = mailto;
+
+    // give the email app a moment to open, then continue to the story
+    setTimeout(() => {
+      window.location.href = "story.html";
+    }, 1200);
   });
 </script>
 </body>
