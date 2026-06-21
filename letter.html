@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Letter — For Afrath</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Marcellus&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="love.css">
+<style>
+  body{background:var(--cream); color:var(--ink);}
+  section{position:relative; padding:120px 24px;}
+  .section-inner{max-width:760px; margin:0 auto;}
+  .kicker{
+    font-family:'Marcellus', serif; font-size:0.72rem; letter-spacing:0.3em; text-transform:uppercase;
+    color:var(--maroon); opacity:0.7; display:block; margin-bottom:18px;
+  }
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity 0.9s ease, transform 0.9s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  .letter-section{background:linear-gradient(180deg, var(--cream) 0%, #f6ead9 100%);}
+  .letter-paper{
+    background:#fffaf2; border:1px solid rgba(199,154,75,0.35);
+    box-shadow:0 30px 60px -20px rgba(58,13,20,0.25), 0 0 0 1px rgba(199,154,75,0.08);
+    border-radius:2px; padding:clamp(32px,6vw,72px); position:relative;
+  }
+  .letter-paper::before{content:""; position:absolute; inset:14px; border:1px solid rgba(199,154,75,0.18); pointer-events:none;}
+  .letter-head{text-align:center; margin-bottom:40px;}
+  .letter-to{font-family:'Marcellus', serif; font-size:1.6rem; color:var(--maroon-deep);}
+  .letter-occasion{margin-top:6px; font-size:0.95rem; color:var(--maroon); opacity:0.7; font-style:italic;}
+  .letter-body p{font-size:1.18rem; line-height:1.85; margin-bottom:24px; color:#3a241d;}
+  .letter-body p:first-of-type::first-letter{
+    font-family:'Marcellus', serif; font-size:3.4rem; float:left; line-height:0.8; padding:8px 10px 0 0; color:var(--maroon);
+  }
+  .letter-sign{margin-top:36px; text-align:right;}
+  .letter-sign .from{font-family:'Caveat', cursive; font-size:2.1rem; color:var(--maroon);}
+
+  .closing{
+    text-align:center;
+    background:radial-gradient(ellipse at 50% 80%, #6e1f29 0%, var(--maroon-deep) 60%, #270609 100%);
+    color:var(--blush); padding-bottom:140px;
+  }
+  .closing .kicker{color:var(--gold-soft);}
+  .closing-title{font-family:'Marcellus', serif; font-size:clamp(1.8rem,4.5vw,2.6rem); margin-bottom:18px;}
+  .closing-title em{font-style:italic; color:var(--gold-soft); font-family:'Cormorant Garamond', serif;}
+  .closing p{font-size:1.15rem; line-height:1.7; color:rgba(243,224,216,0.8); max-width:50ch; margin:0 auto;}
+  .heart-mark{margin-top:40px; font-size:1.6rem; color:var(--gold-soft);}
+
+  @media (max-width:540px){section{padding:84px 20px;}}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<!-- LETTER -->
+<section class="letter-section">
+  <div class="section-inner reveal">
+    <span class="kicker">The letter</span>
+    <div class="letter-paper">
+      <div class="letter-head">
+        <div class="letter-to">My dearest Afrath,</div>
+        <div class="letter-occasion">Written Early only but a little late for the post to deliver, Anyways, meant every single word...</div>
+      </div>
+      <div class="letter-body">
+        <p>I am just crazy about you. Throughout all the heavy storms in my life, I have always just wanted a gentle breeze to comfort and hold me close. I find myself craving true care, gentleness, attention, and all the warmth and happiness I feel I've missed out on for so long.</p>
+        <p>We don't know what the future holds for us, but more than anything, I want you by my side through it all. Please be my gentle breeze, my safe place to run to, and the best friend I can talk to about absolutely anything.</p>
+        <p>I always wished my husband would be all ears to what I speak, would care about my feelings, would think of me before I could think of myself — a protector who protects my heart without ever leaving a wound.</p>
+        <p>I always wished my husband would do the very little things without being asked. I love being surprised, because no one else is ever going to do those things for us, other than us.</p>
+        <p>I loved your ring. It made me feel so special — even more special when you said you had wanted to gift it to me yourself. I loved it, da.</p>
+        <p>Happy belated anniversary, my love. Late by date, never by feeling.</p>
+      </div>
+      <div class="letter-sign">
+        <div class="from">forever yours</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing">
+  <div class="section-inner reveal">
+    <span class="kicker">always</span>
+    <h2 class="closing-title">11.02.2025 → 11.06.2025 → 11.06.2026 </h2>
+    <p>One story has unfolded, and it has completed it's first year of journey together ❤︎ </p>
+    <div class="heart-mark">— your wife - Sameeha Izzath </div>
+  </div>
+</section>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold:0.15 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+</body>
+</html>

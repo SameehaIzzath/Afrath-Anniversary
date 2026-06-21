@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Afrath — a little question</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Marcellus&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="love.css">
+<style>
+  body{
+    background:radial-gradient(ellipse at 50% 90%, #8a1f33 0%, var(--rose) 50%, #260509 100%);
+    color:var(--blush);
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<a href="q3.html" class="q-back">← back</a>
+
+<div class="q-page">
+  <div class="q-progress">
+    <span class="done"></span><span class="done"></span><span class="done"></span><span class="active"></span>
+  </div>
+  <span class="q-eyebrow" style="color:var(--gold-soft)">Question four, the last one</span>
+  <h1 class="q-title">Finish this for me: <em>"I promise you..."</em></h1>
+
+  <div class="q-textwrap">
+    <textarea id="answer4" placeholder="...write your promise, I'll keep it safe"></textarea>
+  </div>
+  <p class="q-reaction" id="reaction"></p>
+
+  <div class="q-nav">
+    <a href="story.html" class="q-next" id="nextBtn">Open our story →</a>
+  </div>
+</div>
+
+<script>
+  const ta = document.getElementById('answer4');
+  const reaction = document.getElementById('reaction');
+  const nextBtn = document.getElementById('nextBtn');
+
+  ta.addEventListener('input', () => {
+    if(ta.value.trim().length > 0){
+      nextBtn.classList.add('enabled');
+      reaction.textContent = "I'll hold you to it, gently.";
+      reaction.classList.add('show');
+      try{ localStorage.setItem('q4', ta.value.trim()); }catch(e){}
+    } else {
+      nextBtn.classList.remove('enabled');
+      reaction.classList.remove('show');
+    }
+  });
+</script>
+</body>
+</html>

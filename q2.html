@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Afrath — a little question</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Marcellus&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="love.css">
+<style>
+  body{
+    background:radial-gradient(ellipse at 20% 85%, #6e2350 0%, var(--plum) 55%, #200613 100%);
+    color:var(--blush);
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<a href="q1.html" class="q-back">← back</a>
+
+<div class="q-page">
+  <div class="q-progress">
+    <span class="done"></span><span class="active"></span><span></span><span></span>
+  </div>
+  <span class="q-eyebrow" style="color:var(--gold-soft)">Question two</span>
+  <h1 class="q-title">What is it you love <em>most</em> about me?</h1>
+
+  <div class="q-textwrap">
+    <textarea id="answer2" placeholder="Take your time, da... write whatever comes to mind"></textarea>
+  </div>
+  <p class="q-reaction" id="reaction"></p>
+
+  <div class="q-nav">
+    <a href="q3.html" class="q-next" id="nextBtn">Next →</a>
+  </div>
+</div>
+
+<script>
+  const ta = document.getElementById('answer2');
+  const reaction = document.getElementById('reaction');
+  const nextBtn = document.getElementById('nextBtn');
+
+  ta.addEventListener('input', () => {
+    if(ta.value.trim().length > 0){
+      nextBtn.classList.add('enabled');
+      reaction.textContent = "I'm saving every word of this.";
+      reaction.classList.add('show');
+      try{ localStorage.setItem('q2', ta.value.trim()); }catch(e){}
+    } else {
+      nextBtn.classList.remove('enabled');
+      reaction.classList.remove('show');
+    }
+  });
+</script>
+</body>
+</html>

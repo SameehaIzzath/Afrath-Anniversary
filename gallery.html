@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Few Moments — For Afrath</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Marcellus&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="love.css">
+<style>
+  body{
+    background:radial-gradient(ellipse at 50% 15%, #6e1f29 0%, var(--maroon-deep) 55%, #1e0508 100%);
+    color:var(--blush);
+  }
+
+  .gallery-page{
+    min-height:100svh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    padding:80px 24px 60px;
+    position:relative;
+  }
+
+  .g-progress{
+    position:absolute; top:28px; left:50%; transform:translateX(-50%);
+    display:flex; gap:6px; flex-wrap:wrap; justify-content:center; max-width:90vw;
+  }
+  .g-progress span{width:18px; height:3px; border-radius:2px; background:rgba(255,255,255,0.22);}
+  .g-progress span.active{background:var(--gold-soft);}
+  .g-progress span.done{background:rgba(230,201,137,0.5);}
+
+  .g-counter{
+    font-family:'Marcellus', serif; font-size:0.7rem; letter-spacing:0.25em; text-transform:uppercase;
+    color:var(--gold-soft); opacity:0.8; margin-bottom:22px;
+  }
+
+  .g-photo{
+    width:min(360px, 80vw);
+    aspect-ratio:4/5;
+    border:1px dashed rgba(255,255,255,0.35);
+    border-radius:6px;
+    background:rgba(255,255,255,0.06);
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+    margin-bottom:30px;
+  }
+  .g-photo img{width:100%; height:100%; object-fit:cover; display:block;}
+  .g-photo .placeholder{
+    font-family:'Marcellus', serif; font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase;
+    color:rgba(255,255,255,0.45); padding:20px;
+  }
+
+  .g-caption{
+    font-size:1.3rem;
+    font-style:italic;
+    line-height:1.6;
+    max-width:46ch;
+    color:var(--blush);
+  }
+
+  .g-nav{
+    margin-top:44px;
+    display:flex; gap:18px; align-items:center;
+  }
+  .g-btn{
+    font-family:'Marcellus', serif; letter-spacing:0.12em; text-transform:uppercase; font-size:0.78rem;
+    padding:13px 30px; border-radius:30px; border:1px solid var(--gold-soft); color:var(--gold-soft);
+    background:transparent; cursor:pointer; transition:background 0.3s ease, color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+  }
+  .g-btn:hover{background:var(--gold-soft); color:var(--maroon-deep); transform:translateY(-2px);}
+  .g-btn.ghost{opacity:0.55; border-color:rgba(255,255,255,0.35); color:rgba(255,255,255,0.7);}
+  .g-btn.ghost:hover{background:rgba(255,255,255,0.12); color:var(--blush);}
+  .g-btn[disabled]{opacity:0.2; pointer-events:none;}
+
+  .q-back{
+    position:absolute; top:32px; left:32px;
+    font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase;
+    opacity:0.55; transition:opacity 0.3s ease;
+  }
+  .q-back:hover{opacity:1;}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<a href="story.html" class="q-back">← back</a>
+
+<div class="gallery-page">
+  <div class="g-progress" id="progress"></div>
+  <span class="g-counter" id="counter"></span>
+  <div class="g-photo" id="photoBox"></div>
+  <p class="g-caption" id="caption"></p>
+
+  <div class="g-nav">
+    <button class="g-btn ghost" id="prevBtn">← back</button>
+    <button class="g-btn" id="nextBtn">next →</button>
+  </div>
+</div>
+
+<script>
+  /* ====== EDIT YOUR PHOTOS HERE ======
+     - src: path to your photo (e.g. "photos/1.jpg"), or leave "" for a placeholder box
+     - caption: your little message for that photo
+     Add or remove as many objects as you like.
+  */
+  const photos = [
+    { src: "photos/IMG_4930.JPG", caption: "The photo we took together when we met at first in person." },
+    { src: "photos/IMG_4871.JPG", caption: "This one, da. I still remember exactly what I felt looking at you for the first time sitting in front of me." },
+    { src: "photos/IMG_4902.JPG", caption: "I want to us to hold our hands forever during the good times and the bad times, I wish for us to be so understanding and supportive" },
+    { src: "photos/IMG_5034.JPG", caption: "Us, The Beautiful memories we hold remembering the days before the wedding and the cute little moments we had............." },
+    { src: "photos/IMG_1775.JPG", caption: "YOU ARE SIGNING FOR THIS FOREVER AGREEMENT BY YOURSELF!!! NO TURNING BACK OKAY!!! REMEMBER THIS MOMENT!" },
+    { src: "photos/1.jpeg", caption: "And we are Together, after all the waitings, life brought us to stage our selves and show the world we are the soulmates. " },
+    { src: "photos/5.jpeg", caption: "one of the best memory during our first trip " },
+    { src: "photos/8.jpeg", caption: "I don't think you know how much I smiled at this one. After the distance we got back again with our little time to once again" },
+    { src: "photos/6.jpeg", caption: "This is full of our sleepy eyes, but This is one of my favorite outing we had." },
+    { src: "photos/10.jpeg", caption: "Just Roaming around the malls and had our little boat ride" },
+    { src: "photos/13.jpeg", caption: "This is the one of the best photos we had, I love how you look at me in this one, and I love how we look at each other in this one." },
+    { src: "photos/14.jpeg", caption: "AAAAHHHHHH!!!! This one, a very beautiful camel ride, I loved it ane...." },
+    { src: "photos/12.jpeg", caption: "This is a just us moment we shared, Let's say it was a Date, which proves me that walking beside you is my favorite" },
+    { src: "photos/11.jpeg", caption: "The Lovely Morning, waiting for the sun to rise just above us" },
+    { src: "photos/3.jpeg", caption: "Another night out,Just Making sure I have explored all the places in Qatar" },
+    { src: "photos/9.jpeg", caption: "REMEMBER WHATEVER IT IS,WE ARE TOGETHER IN THIS LIFE JOURNEY....." },
+
+  ];
+
+  let i = 0;
+  const photoBox = document.getElementById('photoBox');
+  const caption = document.getElementById('caption');
+  const counter = document.getElementById('counter');
+  const progress = document.getElementById('progress');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  // build progress dots
+  photos.forEach(() => {
+    const dot = document.createElement('span');
+    progress.appendChild(dot);
+  });
+
+  function render(){
+    const p = photos[i];
+    photoBox.innerHTML = p.src
+      ? `<img src="${p.src}" alt="">`
+      : `<div class="placeholder">photo ${i+1} of ${photos.length}<br>(add your image here)</div>`;
+    caption.textContent = p.caption;
+    counter.textContent = `${i+1} / ${photos.length}`;
+    prevBtn.disabled = i === 0;
+
+    [...progress.children].forEach((dot, idx) => {
+      dot.className = idx < i ? 'done' : idx === i ? 'active' : '';
+    });
+
+    if(i === photos.length - 1){
+      nextBtn.textContent = 'read my letter →';
+    } else {
+      nextBtn.textContent = 'next →';
+    }
+  }
+
+  prevBtn.addEventListener('click', () => {
+    if(i > 0){ i--; render(); }
+  });
+  nextBtn.addEventListener('click', () => {
+    if(i < photos.length - 1){
+      i++;
+      render();
+    } else {
+      window.location.href = 'letter.html';
+    }
+  });
+
+  render();
+</script>
+</body>
+</html>

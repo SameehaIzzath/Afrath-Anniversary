@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Afrath — a little question</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Marcellus&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="love.css">
+<style>
+  body{
+    background:radial-gradient(ellipse at 80% 15%, #6e1f29 0%, var(--maroon-deep) 55%, #1e0508 100%);
+    color:var(--blush);
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<a href="index.html" class="q-back">← back</a>
+
+<div class="q-page">
+  <div class="q-progress">
+    <span class="active"></span><span></span><span></span><span></span>
+  </div>
+  <span class="q-eyebrow" style="color:var(--gold-soft)">Question one</span>
+  <h1 class="q-title">Do you <em>love</em> me?</h1>
+
+  <div class="q-options" id="options">
+    <button class="q-option" data-reaction="Good answer. Say it again tomorrow.">Without a doubt</button>
+    <button class="q-option" data-reaction="That's all I needed to hear.">More than yesterday</button>
+    <button class="q-option" data-reaction="Then prove it — keep reading.">Completely, always</button>
+  </div>
+  <p class="q-reaction" id="reaction"></p>
+
+  <div class="q-nav">
+    <a href="q2.html" class="q-next" id="nextBtn">Next →</a>
+  </div>
+</div>
+
+<script>
+  const options = document.querySelectorAll('.q-option');
+  const reaction = document.getElementById('reaction');
+  const nextBtn = document.getElementById('nextBtn');
+
+  options.forEach(opt => {
+    opt.addEventListener('click', () => {
+      options.forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      reaction.textContent = opt.dataset.reaction;
+      reaction.classList.add('show');
+      nextBtn.classList.add('enabled');
+      try{ localStorage.setItem('q1', opt.textContent); }catch(e){}
+    });
+  });
+</script>
+</body>
+</html>
